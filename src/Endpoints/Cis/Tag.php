@@ -46,6 +46,16 @@ trait Tag
         }
         return $this->request('POST', 'tagging/tag-association/'.$id.'', $json, array("action"=>"attach-tag-to-multiple-objects"));
     }
+    public function setTagToMultiAssociations($ids,$vm)
+    {
+        $json = array("object_ids"=> array("id"=>$vm,"type"=>"VirtualMachine"),"tag_ids" => $ids);
+        return $this->request('POST', 'tagging/tag-association', $json, array("action"=>"attach-multiple-tags-to-object"));
+    }
+    public function unsetTagToMultiAssociations($ids,$vm)
+    {
+        $json = array("object_ids"=> array("id"=>$vm,"type"=>"VirtualMachine"),"tag_ids" => $ids);
+        return $this->request('POST', 'tagging/tag-association', $json, array("action"=>"detach-multiple-tags-from-object"));
+    }
     public function getListOfVmTagAssociations($id)
     {
         $json = array("object_id"=> array("id"=>$id,"type"=>"VirtualMachine"));
